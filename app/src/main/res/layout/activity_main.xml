@@ -8,11 +8,26 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-
     tools:context="com.zhbit.administrator.video.MainActivity">
-
-    <SurfaceView
-        android:id="@+id/surface"
+    <EditText
+        android:id="@+id/EditText_Ip"
+        android:hint="请输入ip"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" />
+        android:layout_height="50dp"/>
+
+    <EditText
+        android:id="@+id/EditText_Port"
+        android:hint="请输入端口号"
+        android:layout_below="@id/EditText_Ip"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp" />
+
+    <Button
+        android:id="@+id/button"
+        android:text="连接"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/EditText_Port"
+        android:layout_centerHorizontal="true"/>
+
 </RelativeLayout>
