@@ -40,7 +40,7 @@ public class Video extends Activity implements Runnable{
     protected void onCreate(Bundle savedInstanceState) {
 
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);//横屏
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.video);
@@ -53,14 +53,14 @@ public class Video extends Activity implements Runnable{
 
         surface.setKeepScreenOn(true);// 保持屏幕常亮
         mythread = new Thread(this);
-        holder = surface.getHolder();
+        holder = surface.getHolder();//通过 getHolder()方法可以得到这个 SurfaceHolder对象
         holder.addCallback(new SurfaceHolder.Callback() {
-            public void surfaceDestroyed(SurfaceHolder holder) {
+            public void surfaceDestroyed(SurfaceHolder holder) {//surfaceview的对象销毁时调用
                 // TODO Auto-generated method stub
 
             }
 
-            public void surfaceCreated(SurfaceHolder holder) {
+            public void surfaceCreated(SurfaceHolder holder) {//surfaceView被激发是自动调用
                 // TODO Auto-generated method stub
                 mythread.start();
             }
@@ -85,17 +85,22 @@ public class Video extends Activity implements Runnable{
             conn = (HttpURLConnection)videoUrl.openConnection();
             //设置输入流
             conn.setDoInput(true);
+
             //连接
             conn.connect();
             //得到网络返回的输入流
             inputstream = conn.getInputStream();
+
             //创建出一个bitmap
             bmp = BitmapFactory.decodeStream(inputstream);
-            canvas = holder.lockCanvas();
-            canvas.drawColor(Color.WHITE);
-            RectF rectf = new RectF(0, 0, w, h);
+            canvas = holder.lockCanvas();// 获取画布
+            canvas.drawColor(Color.WHITE);//背景颜色
+            RectF rectf = new RectF(0, 0, w, h);//左上右下坐标，占满
+
+            //bmp要绘制的位图对象，不裁剪，图片显示的区域，不要画笔
             canvas.drawBitmap(bmp, null, rectf, null);
-            holder.unlockCanvasAndPost(canvas);
+            holder.unlockCanvasAndPost(canvas);// 解锁画布，提交画好的图像
+
             //关闭HttpURLConnection连接
             conn.disconnect();
         } catch (Exception ex) {
@@ -114,6 +119,5 @@ public class Video extends Activity implements Runnable{
             draw(ip,port);
         }
     }
-
 
 }
